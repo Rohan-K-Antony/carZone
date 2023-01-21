@@ -28,12 +28,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = 'dashboard'
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
 
 # Application definition
 
 INSTALLED_APPS = [
     "cars.apps.CarsConfig",
     "pages.apps.PagesConfig",
+    "account.apps.AccountConfig",
+    "contacts.apps.ContactsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -43,6 +48,14 @@ INSTALLED_APPS = [
     "ckeditor",
     "multiselectfield",
     "django.contrib.humanize",
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #providers
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +147,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'pictures')
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+    messages.INFO : 'info'
+
+}
+
+SITE_ID = 1
+
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT='587'
+EMAIL_HOST_USER='djangoa335@gmail.com'
+EMAIL_HOST_PASSWORD='gcldxiflsdevptaa'
+EMAIL_USE_TLS=True
+
+# import _locale
+# _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])

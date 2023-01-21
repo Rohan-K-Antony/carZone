@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Car
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required(login_url = 'login' )
 def cars(request):
     year_values = Car.objects.values_list('year',flat=True).distinct()
     model_values = Car.objects.values_list('car_title',flat=True).distinct()
@@ -20,7 +22,7 @@ def cars(request):
     }
     return render(request,'cars/cars.html',context)
 
-
+@login_required(login_url = 'login' )
 def car_details(request,id):
     car_detail = Car.objects.get(pk=id)
     context = {
@@ -28,7 +30,7 @@ def car_details(request,id):
     }
     return render(request,'cars/car_details.html',context)
 
-
+@login_required(login_url = 'login' )
 def search(request):
     year_values = Car.objects.values_list('year',flat=True).distinct()
     model_values = Car.objects.values_list('car_title',flat=True).distinct()
