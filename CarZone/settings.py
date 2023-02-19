@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v&p+0bgy*j7)_%96bt)jefx%s3f6ipy6l%#_5ut$kmaj=_$6i&"
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',cast = bool)
 
 ALLOWED_HOSTS = []
 
@@ -97,9 +98,9 @@ WSGI_APPLICATION = "CarZone.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE":"django.db.backends.postgresql",
-        "NAME":"myCar",
-        "USER":"postgres",
-        "PASSWORD":"1234",
+        "NAME":config('DBNAME'),
+        "USER":config('DBUSER'),
+        "PASSWORD":config('DBPASSWORD'),
         "HOST":"localhost"
     }
 }
@@ -158,11 +159,11 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT='587'
-EMAIL_HOST_USER='djangoa335@gmail.com'
-EMAIL_HOST_PASSWORD='gcldxiflsdevptaa'
-EMAIL_USE_TLS=True
+EMAIL_HOST=config('EMAIL_HOST')
+EMAIL_PORT=config('EMAIL_PORT')
+EMAIL_HOST_USER=config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS=config('EMAIL_USE_TLS',cast=bool)
 
 # import _locale
 # _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
